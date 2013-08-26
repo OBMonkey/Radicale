@@ -604,12 +604,20 @@ Radicale module in your Python path and write your ``.wsgi`` file (in
 
 .. code-block:: python
 
+   #Optionally set your RADICALE_CONFIG to point to your web specific config file
+   #import os
+   #os.environ['RADICALE_CONFIG']='/var/www/private_https/radicale/config'
+
    import radicale
    radicale.log.start()
    application = radicale.Application()
 
 .. note::
    The ``[server]`` part of the configuration is ignored.
+
+.. note::
+   Using Apache2 WSGI environment variables come in the form of server headers, which are not read by the config.
+   To specify the config to use with an Apache WSGI, you need to set os.environ['RADICALE_CONFIG'] before you import radicale.
 
 Next you have to create the Apache virtual host (adapt the configuration
 to your environment):
